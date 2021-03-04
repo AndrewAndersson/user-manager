@@ -62,7 +62,7 @@ export class LoginComponent implements OnInit {
     this.authSrv.login(this.loginForm.value)
         .pipe(first())
         .subscribe(
-          result => this.router.navigate(['list']),
+          result => this.router.navigate(['profile']),
           err => this.states.setSnackbarParams({message: err?.error?.result[0].message, color: 'warning', timeout: 2000})
         );
   }
@@ -78,7 +78,7 @@ export class LoginComponent implements OnInit {
     this.authSrv.register(this.loginForm.value)
         .pipe(first())
         .subscribe(
-          result => this.router.navigate(['list']),
+          result => this.router.navigate(['profile']),
           err => this.states.setSnackbarParams({message: err?.error?.result[0].message, color: 'warning', timeout: 2000})
         );
   }

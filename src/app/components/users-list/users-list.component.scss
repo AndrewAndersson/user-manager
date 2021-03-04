@@ -1,0 +1,16 @@
+.user-list {
+    width: 100vw;
+    height: calc(100vh - 96px);
+    overflow: auto;
+    &__user {
+        margin: 24px 0 24px 48px;
+        display: flex;
+        img {
+            width: 56px;
+            height: 56px;
+        }
+        div {
+            margin-left: 24px;
+        }
+    }
+}

@@ -1,0 +1,91 @@
+@import '../../../variables';
+.profile {
+    width: 100vw;
+    display: flex;
+    &__user-avatar {
+        width: 40%;
+        box-sizing: border-box;
+        padding: 40px 50px;
+        img {
+            width: 100%;
+            height: 300px;
+        }
+
+        button {
+            @include button;
+            margin: 18px auto;
+            display: block;
+            background: $input-text-color;
+        }
+
+        input {
+            visibility: hidden;
+        }
+    }
+    &__user-data {
+        width: 60%;
+        &__form{
+            width: 320px;
+            margin-left: 56px;
+            &__first-name, &__last-name, &__buttons{
+                width: 100%;
+                margin-top: 32px;
+            }
+            &__first-name, &__last-name {
+                position: relative;
+                label {
+                    position: absolute;
+                    bottom: 4px;
+                    left: 2px;
+                    color: $input-text-color;
+                    font-size: 16px;
+                }
+                input {
+                    width: 100%;
+                    height: 24px;
+                    @include input-style;
+                    border: 1px solid $input-text-color;
+                }
+                .error {
+                    position: absolute;
+                    font-size: 14px;
+                    color: $warning;
+                    bottom: -18px;
+                }
+            }
+            &__gender {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                margin-top: 24px;
+                button {
+                    @include button;
+                    background: transparent;
+                    box-shadow: none;
+                    padding: 0;
+                    &:hover {
+                        box-shadow: none;
+                    }
+                    position: relative;
+                    span {
+                        position: absolute;
+                        top: 4px;
+                        left: 32px;
+                    }
+                }
+                input {
+                    visibility: hidden;
+                }
+            }
+            &__buttons{
+                display: flex;
+                justify-content: flex-end;
+                button {
+                    @include button;
+                    background: $input-text-color;
+                    color: $white;
+                }
+            }
+        }
+    }
+}

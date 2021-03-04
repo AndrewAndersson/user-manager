@@ -1,1 +1,37 @@
-<p>profile works!</p>
+<section class="profile">
+    <div class="profile__user-avatar">
+        <img [src]="imagePreview? imagePreview: user?.image" alt="">
+        <button (click)="imagePicker.click()">
+            Change image
+        </button>
+        <input type="file" #imagePicker (change)="uploadPhoto($event)">
+    </div>
+    <div class="profile__user-data">
+        <form [formGroup]="userForm" class="profile__user-data__form">
+            <div class="profile__user-data__form__first-name">
+                <input type="text" id="firstName" formControlName="firstName" (focus)="onFocus('firstName')" />
+            </div>
+            <div class="profile__user-data__form__last-name">
+                <input type="text" id="lastName" formControlName="lastName" (focus)="onFocus('lastName')" />
+            </div>
+            <div class="profile__user-data__form__gender">
+                <button (click)="checkMale.click(); onResetGender('genderFemale');">
+                    <img *ngIf="!gender?.genderMale" src="../../../assets/img/checkbox-not-active.svg" alt="">
+                    <img *ngIf="gender?.genderMale" src="../../../assets/img/checkbox-marked.svg" alt="">
+                    <span>Male</span>
+                </button>
+                <button (click)="checkFemale.click(); onResetGender('genderMale')">
+                    <img *ngIf="!gender?.genderFemale" src="../../../assets/img/checkbox-not-active.svg" alt="">
+                    <img *ngIf="gender?.genderFemale" src="../../../assets/img/checkbox-marked.svg" alt="">
+                    <span>Female</span>
+                </button>
+                <input type="checkbox" #checkMale formControlName="genderMale">
+                <input type="checkbox" #checkFemale formControlName="genderFemale">
+
+            </div>
+            <div class="profile__user-data__form__buttons">
+                <button (click)="onSubmit()">Save changes</button>
+            </div>
+        </form>
+    </div>
+</section>

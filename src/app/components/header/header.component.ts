@@ -1,3 +1,4 @@
+import { StatesService } from './../../services/states.service';
 import { Router } from '@angular/router';
 import { AuthService } from './../../auth/auth.service';
 import { Component, OnInit } from '@angular/core';
@@ -8,10 +9,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  query: string;
 
   constructor(
     private authSrv: AuthService,
-    private router: Router
+    private router: Router,
+    private state: StatesService
   ) { }
 
   ngOnInit(): void {
@@ -22,6 +25,10 @@ export class HeaderComponent implements OnInit {
       localStorage.removeItem('access_token');
       this.router.navigate(['login']);
     });
+  }
+
+  onInput() {
+    this.state.setQuery(this.query);
   }
 
 }

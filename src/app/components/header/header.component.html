@@ -3,7 +3,7 @@
     <a routerLink="/list" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-bar__link">List</a>
     <div class="nav-bar__query">
         <img src="../../../assets/img/search.png" alt="">
-        <input type="text">
+        <input type="text" (input)="onInput()" [(ngModel)]="query">
     </div>
     <a routerLink="/profile" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-bar__link">Profile</a>
     <button class="nav-bar__link" (click)="logout()">Logout</button>

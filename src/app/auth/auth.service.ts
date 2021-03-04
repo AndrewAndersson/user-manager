@@ -13,9 +13,7 @@ export class AuthService {
   login(body: LoginRequestData): Observable<boolean> {
     return this.http.post<{token: string}>(this.requestUrl + '/login', body)
       .pipe(
-        map((res: any) => {
-          console.log(res);
-          
+        map((res: any) => {          
           localStorage.setItem('access_token', res.result.token);
           return true;
         })
