@@ -1,8 +1,10 @@
+import { Router } from '@angular/router';
+import { AuthService } from './../../auth/auth.service';
 import { StatesService } from './../../services/states.service';
 import { LoginResponseData } from './../../models/login-data.model';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ClientService } from 'src/app/services/client.service';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +18,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private states: StatesService,
-    private client: ClientService
+    private router: Router,
+    private authSrv: AuthService
     ){}
 
   ngOnInit(){  
@@ -56,11 +59,12 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    this.client.loginUser(this.loginForm.value)
-        .subscribe((res: LoginResponseData) => {
-          console.log(res);
-          
-        }, err => this.states.setSnackbarParams({message: err?.error?.result[0].message, color: 'warning', timeout: 2000}));
+    this.authSrv.login(this.loginForm.value)
+        .pipe(first())
+        .subscribe(
+          result => this.router.navigate(['list']),
+          err => this.states.setSnackbarParams({message: err?.error?.result[0].message, color: 'warning', timeout: 2000})
+        );
   }
 
   onRegister() {
@@ -71,10 +75,11 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    this.client.registerUser(this.loginForm.value)
-        .subscribe((res: LoginResponseData) => {
-          console.log(res);
-          
-        }, err => this.states.setSnackbarParams({message: err?.error?.result[0].message, color: 'warning', timeout: 2000}));
+    this.authSrv.register(this.loginForm.value)
+        .pipe(first())
+        .subscribe(
+          result => this.router.navigate(['list']),
+          err => this.states.setSnackbarParams({message: err?.error?.result[0].message, color: 'warning', timeout: 2000})
+        );
   }
 }

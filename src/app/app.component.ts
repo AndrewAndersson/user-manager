@@ -1,23 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { ClientService } from './services/client.service';
-
+import { Router } from '@angular/router';
+import { filter } from 'rxjs/operators';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'user-manager';
+  isVisibleHeader: boolean;
   constructor(
-    private client: ClientService
-  ) {}
+    private router:Router
+    ) {}
 
   ngOnInit() {
-    // this.client.loginUser().subscribe(res => {
-    //   this.client.getAllUsers(res['result'].token).subscribe(res => {
-    //     console.log(res);
-        
-    //   });
-    // }, err => console.log(err));
+    this.router.events
+        .pipe(filter((data: any) => data.url))
+        .subscribe(({url}) => this.isVisibleHeader = !url?.includes('login'));
   }
 }

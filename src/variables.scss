@@ -3,6 +3,13 @@ $white: rgb(255, 255, 255);
 $blue-btn: rgb(32, 129, 240);
 $dark: rgb(0, 0, 0);
 $warning: rgb(192, 61, 41);
+$active: rgb(132, 172, 238);
+
+@mixin header-btn-shadow {
+    -webkit-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
+}
 
 @mixin input-style {
     border:none;
@@ -18,6 +25,7 @@ $warning: rgb(192, 61, 41);
     border-bottom: 1px solid $input-text-color;
     font-size: 16px;
     color: $input-text-color;
+    transition: all .25s;
     &.ng-touched.ng-invalid{
         border-color: $warning;
     }

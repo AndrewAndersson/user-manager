@@ -1,6 +1,6 @@
+import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http'
-import { LoginRequestData } from './../models/login-data.model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,24 +13,13 @@ export class ClientService {
     private http: HttpClient
   ) { }
 
-  registerUser(body: LoginRequestData){
-    return this.http.post(this.requestUrl + '/register', body); 
+  private getAuthHeaders() {    
+    return new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('access_token'));
   }
 
-  loginUser(body: LoginRequestData){
-    return this.http.post(this.requestUrl + '/login', body); 
-  }
-
-  logout() {
-    return this.http.post(this.requestUrl + '/logout', {}); 
-  }
-
-  getAllUsers(token: string) {
-    console.log(token);
-    const headers = new HttpHeaders()
-    .set('Authorization', 'Bearer ' + token);
+  getAllUsers() {
     return this.http.get(this.requestUrl, {
-      headers: headers
-    }); 
+      headers: this.getAuthHeaders()
+    }).pipe(map((res: any) => res.result)); 
   }
 }

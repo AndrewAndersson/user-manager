@@ -12,12 +12,27 @@ import { MatInputModule } from '@angular/material/input';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SnackbarComponent } from './components/snackbar/snackbar.component';
+import { UsersListComponent } from './components/users-list/users-list.component';
+import { JwtModule } from '@auth0/angular-jwt';
+import { AuthGuard } from './auth/auth.guard';
+import { AuthService } from './auth/auth.service';
+import { HeaderComponent } from './components/header/header.component';
+import { MapComponent } from './components/map/map.component';
+import { ProfileComponent } from './components/profile/profile.component';
+// ...
+export function tokenGetter() {
+  return localStorage.getItem('access_token');
+}
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    SnackbarComponent
+    SnackbarComponent,
+    UsersListComponent,
+    HeaderComponent,
+    MapComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -28,8 +43,18 @@ import { SnackbarComponent } from './components/snackbar/snackbar.component';
     MatInputModule,
     FormsModule,
     ReactiveFormsModule,
+
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter
+      }
+    })
   ],
-  providers: [ClientService],
+  providers: [
+    ClientService,
+    AuthGuard,
+    AuthService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
