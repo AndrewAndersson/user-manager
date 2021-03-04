@@ -1,0 +1,53 @@
+$input-text-color: rgb(148, 147, 147);
+$white: rgb(255, 255, 255);
+$blue-btn: rgb(32, 129, 240);
+$dark: rgb(0, 0, 0);
+$warning: rgb(192, 61, 41);
+
+@mixin input-style {
+    border:none;
+    background-image:none;
+    background-color:transparent;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    border: 0px solid;
+    &:focus{
+        outline: none;
+    }
+    border-bottom: 1px solid $input-text-color;
+    font-size: 16px;
+    color: $input-text-color;
+    &.ng-touched.ng-invalid{
+        border-color: $warning;
+    }
+}
+
+@mixin button {
+    border: none;
+    margin: 0;
+    padding: 0;
+    width: auto;
+    overflow: visible;
+    background: transparent;
+    &:focus{
+        outline: none;
+    }
+
+    padding: 6px 12px;
+    color: $dark;
+    cursor: pointer;
+    @include button-shadow;
+    border-radius: 2px;
+    &:hover {
+        @include button-shadow-hovered;
+    }
+}
+
+@mixin button-shadow {
+	box-shadow: 0 1px 3px 0 rgba(0,0,0,.12), 0 1px 2px 0 rgba(0,0,0,.24);
+}
+
+@mixin button-shadow-hovered {
+	box-shadow: 0 5px 6.6px 0.4px rgba(0,0,0,.24), 0 2px 9.8px 0.2px rgba(0,0,0,.16);
+}

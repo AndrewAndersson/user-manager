@@ -1,0 +1,20 @@
+<section class="login-page">
+    <form [formGroup]="loginForm" class="login-page__form">
+        <h1 class="login-page__form__title">Please login</h1>
+        <div class="login-page__form__email">
+            <label for="email">{{((isFocused === 'email') || (isFocused === 'both'))? '':'Your email...'}}</label>
+            <input type="email" id="email" formControlName="email" (focus)="onFocus('email')" (blur)="onFocus(undefined)" />
+            <div class="error" *ngIf="isControlInvalid('email')">invalid email</div>
+        </div>
+        <div class="login-page__form__pass">
+            <label for="password">{{((isFocused === 'pass') || (isFocused === 'both'))? '':'Your password...'}}</label>
+            <input type="password" id="password" minlength="6" formControlName="password" (focus)="onFocus('pass')" (blur)="onFocus(undefined)" />
+            <div class="error" *ngIf="isControlInvalid('password')">invalid password</div>
+        </div>
+        <div class="login-page__form__buttons">
+            <button (click)="onRegister()">Registration</button>
+
+            <button (click)="onLogin()" >Login</button>
+        </div>
+    </form>
+</section>

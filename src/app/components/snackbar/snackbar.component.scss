@@ -1,0 +1,21 @@
+@import '../../../variables';
+
+.snackbar {
+    position: fixed;
+    z-index: 10000;
+    background-color: $white;
+    padding: 16px 32px;
+    border-radius: 2px;
+    bottom: 55px;
+    right: 100px;
+    &.warning {
+        color: $warning;
+    }
+    &.success{
+        color: $dark;
+    }
+    &__info {
+        font-size: 16px;
+        margin: 0;
+    }
+}

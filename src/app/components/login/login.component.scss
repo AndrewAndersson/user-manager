@@ -1,0 +1,61 @@
+@import '../../../variables';
+
+.login-page {
+    background: $input-text-color;
+    width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &__form{
+        width: 320px;
+        background: $white;
+        padding: 50px 25px;
+        border-radius: 4px;
+        @include button-shadow;
+        &__title {
+            font-size: 28px;
+            color: $input-text-color;
+            margin: 0;
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        &__email, &__pass, &__buttons {
+            width: 100%;
+            margin-top: 32px;
+        }
+        &__email, &__pass {
+            position: relative;
+            label {
+                position: absolute;
+                bottom: 4px;
+                left: 2px;
+                color: $input-text-color;
+                font-size: 16px;
+            }
+            input {
+                width: 100%;
+                height: 24px;
+                @include input-style;
+            }
+            .error {
+                position: absolute;
+                font-size: 14px;
+                color: $warning;
+                bottom: -18px;
+            }
+        }
+        &__buttons {
+            display: flex;
+            justify-content: space-between;
+            button {
+                @include button;
+                background: $input-text-color;
+                color: $white;
+                &:last-child {
+                    background: $blue-btn;
+                }
+            }
+        }
+    }
+}
