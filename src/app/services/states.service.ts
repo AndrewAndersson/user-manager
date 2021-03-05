@@ -1,5 +1,6 @@
+import { UserData } from './../models/user-data.model';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { SnackbarParams } from '../models/snackbar-params.model';
 
 @Injectable({
@@ -12,6 +13,9 @@ export class StatesService {
 
   private searchUserSource = new Subject<string>();
   searchUser$ = this.searchUserSource.asObservable();
+
+  private selectedUserSource = new BehaviorSubject<UserData>(undefined);
+  selectedUser$ = this.selectedUserSource.asObservable();
   
   constructor() { }
 
@@ -21,5 +25,9 @@ export class StatesService {
 
   setQuery(query: string) {
     this.searchUserSource.next(query);
+  }
+
+  selectUser(user: UserData) {    
+    this.selectedUserSource.next(user);
   }
 }

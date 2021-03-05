@@ -1,3 +1,4 @@
+import { ClientService } from 'src/app/services/client.service';
 import { Router } from '@angular/router';
 import { AuthService } from './../../auth/auth.service';
 import { StatesService } from './../../services/states.service';
@@ -19,7 +20,8 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private states: StatesService,
     private router: Router,
-    private authSrv: AuthService
+    private authSrv: AuthService,
+    private client: ClientService
     ){}
 
   ngOnInit(){  
@@ -62,7 +64,12 @@ export class LoginComponent implements OnInit {
     this.authSrv.login(this.loginForm.value)
         .pipe(first())
         .subscribe(
-          result => this.router.navigate(['profile']),
+          result => {
+            const lon = 30.40 + this.getRandomInt(3), 
+                  lat = 50.272 + this.getRandomInt(3);
+            this.client.updateLocation({lon, lat}).subscribe();
+            this.router.navigate(['profile']);
+          },
           err => this.states.setSnackbarParams({message: err?.error?.result[0].message, color: 'warning', timeout: 2000})
         );
   }
@@ -78,8 +85,17 @@ export class LoginComponent implements OnInit {
     this.authSrv.register(this.loginForm.value)
         .pipe(first())
         .subscribe(
-          result => this.router.navigate(['profile']),
+          result => {
+            const lon = 30.40 + this.getRandomInt(6), 
+            lat = 50.272 + this.getRandomInt(6);
+            this.client.updateLocation({lon, lat}).subscribe();
+            this.router.navigate(['profile'])
+          },
           err => this.states.setSnackbarParams({message: err?.error?.result[0].message, color: 'warning', timeout: 2000})
         );
+  }
+
+  getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
   }
 }

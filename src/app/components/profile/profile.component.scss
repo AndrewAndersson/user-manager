@@ -24,6 +24,14 @@
     }
     &__user-data {
         width: 60%;
+        &__user {
+            display: flex;
+            flex-direction: column;
+            span {
+                font-size: 24px;
+                margin-top: 32px;
+            }
+        }
         &__form{
             width: 320px;
             margin-left: 56px;

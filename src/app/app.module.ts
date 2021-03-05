@@ -19,6 +19,7 @@ import { AuthService } from './auth/auth.service';
 import { HeaderComponent } from './components/header/header.component';
 import { MapComponent } from './components/map/map.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { AgmCoreModule } from '@agm/core';
 // ...
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -48,6 +49,10 @@ export function tokenGetter() {
       config: {
         tokenGetter: tokenGetter
       }
+    }),
+
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDw6y4_1ZK11CFPxykedWGtrSG2o12efK4'
     })
   ],
   providers: [

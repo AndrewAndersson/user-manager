@@ -42,4 +42,10 @@ export class ClientService {
       headers: this.getAuthHeaders()
     }).pipe(map((res: any) => res.result)); ; 
   }
+
+  updateLocation(body: any) {
+    return this.http.put(this.requestUrl + '/location', body, {
+      headers: this.getAuthHeaders()
+    }).pipe(map((res: any) => res.result)); ; 
+  }
 }

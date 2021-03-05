@@ -1,16 +1,19 @@
+import { takeUntil } from 'rxjs/operators';
 import { StatesService } from './../../services/states.service';
 import { UserData } from './../../models/user-data.model';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ClientService } from 'src/app/services/client.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { mimeType } from '../../validators/mime-type.validator';
+import { Subject } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
 
   user: UserData;
 
@@ -20,13 +23,23 @@ export class ProfileComponent implements OnInit {
   imagePreview: any;
   gender: any;
 
+  selectedUser: UserData;
+  isViewMode: boolean
+
+  private destroy$: Subject<boolean> = new Subject<boolean>();
+
   constructor(
     private client: ClientService,
     private states: StatesService,
     private fb: FormBuilder,
+    private activateRoute: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
+    this.activateRoute.params.subscribe(params=>{
+      this.isViewMode = params['id'];      
+    });
     this.client.getCurrentUser()
         .subscribe((res: UserData) => {
           this.user = res;
@@ -45,6 +58,22 @@ export class ProfileComponent implements OnInit {
     this.userForm.valueChanges.subscribe(({genderMale, genderFemale}) => {
       this.gender = {genderMale, genderFemale};
     });
+
+    this.states.selectedUser$ 
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(user => {
+          if(!user) {
+            this.router.navigate(['/profile'])
+            return;
+          }
+          this.selectedUser = user;
+        });
+  }
+
+  ngOnDestroy() {
+    this.selectedUser = undefined;
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 
   uploadPhoto(e) {

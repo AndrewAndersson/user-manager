@@ -1,1 +1,11 @@
-<p>map works!</p>
+<agm-map [latitude]="lat" [longitude]="lng">
+    <agm-marker *ngFor="let user of userData"
+                [latitude]="user.lat"
+                [longitude]="user.lon"
+                [label]="{color: 'white', text: user.firstName + ' ' + user.lastName}"
+                [iconUrl]='{"url": user.image,"scaledSize": {"height": 50, "width": 40}}'
+                [markerClickable]="true"
+        (markerClick)="onclick(user)"
+                >
+    </agm-marker>
+</agm-map>

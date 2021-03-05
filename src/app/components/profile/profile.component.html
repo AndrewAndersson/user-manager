@@ -1,13 +1,20 @@
 <section class="profile">
     <div class="profile__user-avatar">
-        <img [src]="imagePreview? imagePreview: user?.image" alt="">
-        <button (click)="imagePicker.click()">
+        <img [src]="imagePreview? imagePreview: user?.image" alt=""  *ngIf="!isViewMode">
+        <img [src]="selectedUser?.image" alt=""  *ngIf="isViewMode">
+
+        <button (click)="imagePicker.click()"  *ngIf="!isViewMode">
             Change image
         </button>
         <input type="file" #imagePicker (change)="uploadPhoto($event)">
     </div>
     <div class="profile__user-data">
-        <form [formGroup]="userForm" class="profile__user-data__form">
+        <div class="profile__user-data__user" *ngIf="isViewMode">
+          <span>First Name: {{selectedUser?.firstName}}</span>
+          <span>Last Name: {{selectedUser?.lastName}}</span>  
+          <span>gender: {{selectedUser?.gender}}</span>  
+        </div>
+        <form [formGroup]="userForm" class="profile__user-data__form" *ngIf="!isViewMode">
             <div class="profile__user-data__form__first-name">
                 <input type="text" id="firstName" formControlName="firstName" (focus)="onFocus('firstName')" />
             </div>
